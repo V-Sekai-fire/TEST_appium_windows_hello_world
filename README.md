@@ -16,7 +16,7 @@ In the field of game development, it's crucial to provide a seamless user experi
 
 ## Problem
 
-Our primary challenge is automating the testing process using Appium. A significant part of this strategy involves converting FBX files, which are commonly used formats for 3D models and animations, into GLB format.
+Our primary challenge is automating the testing process using Appium. We want to learn how to use appium with Windows 11.
 
 ## Solution
 
