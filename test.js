@@ -4,8 +4,7 @@ const capabilities = {
   platformName: "Windows",
   'appium:options': {
     automationName: 'windows',
-    app: "C:\\Windows\\System32\\notepad.exe",
-    'ms:waitForAppLaunch': 50,
+    app: "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App", // This is the application ID for the Windows Calculator
   }
 };
 
@@ -18,12 +17,28 @@ const wdOpts = {
 async function runTest() {
   const driver = await remote(wdOpts);
   try {
-    const currentTime = new Date().toISOString();
-    await driver.keys(currentTime);
-    await driver.keys(['Control', 's']);
-    await driver.keys('Desktop\\' + currentTime + '.txt');
-    await driver.keys('Enter');
-    await driver.keys(['Alt', 'f4']);
+    // Find the buttons for '4', '2', '+', and '=' by their names
+    const button4 = await driver.findElement('name', 'Four');
+    const button2 = await driver.findElement('name', 'Two');
+    const buttonPlus = await driver.findElement('name', 'Plus');
+    const buttonEquals = await driver.findElement('name', 'Equals');
+
+    // Click the buttons in the correct order to perform the calculation 42 + 42
+    await driver.elementClick(button4.ELEMENT);
+    await driver.elementClick(button2.ELEMENT);
+    await driver.elementClick(buttonPlus.ELEMENT);
+    await driver.elementClick(button4.ELEMENT);
+    await driver.elementClick(button2.ELEMENT);
+    await driver.elementClick(buttonEquals.ELEMENT);
+
+    // Find the result element by its automation id
+    const resultElement = await driver.findElement('accessibility id', 'CalculatorResults');
+
+    // Get the result text
+    const resultText = await driver.getElementText(resultElement.ELEMENT);
+
+    console.log(`Result: ${resultText}`); // Should print: Result: Display is 84
+
   } finally {
     await driver.deleteSession();
   }

@@ -14,5 +14,8 @@
   },
   "devDependencies": {
     "webdriverio": "^8.26.0"
+  },
+  "dependencies": {
+    "tesseract.js": "^5.0.3"
   }
 }
